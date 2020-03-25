@@ -1,0 +1,19 @@
+h1 {
+    color: red;
+    border: 2px solid purple;
+}
+
+li {
+    color: green;
+}
+
+h4 {
+    color: purple;
+}
+
+body {
+    background-color: pink;
+    /* background: url("https://www.goodcore.co.uk/blog/wp-content/uploads/2019/08/coding-vs-programming-2-1024x439.jpg");
+    background-repeat: no-repeat;
+    background-size: cover; */
+}
