@@ -21,7 +21,7 @@ app.get('/speak/:animal', function(req, res) {
 app.get("/repeat/:word/:number", function(req, res) {
     const word = req.params.word;
     const number = parseInt(req.params.number);
-    const constructedString = "";
+    let constructedString = "";
     for (let i = 0; i < number; i++) {
         constructedString += word + " ";
     }
