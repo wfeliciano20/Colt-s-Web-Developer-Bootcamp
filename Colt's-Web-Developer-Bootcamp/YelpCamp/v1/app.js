@@ -2,7 +2,9 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 app.set("view engine", "ejs");
 
 const campgrounds = [{
@@ -14,6 +16,16 @@ const campgrounds = [{
         image: "https://api.creativecommons.engineering/t/600/https://farm9.staticflickr.com/8003/28660877652_56f7af6fc1_m.jpg",
     },
     {
+        name: "Mountain Goat's Rest",
+        image: "https://api.creativecommons.engineering/t/600/https://live.staticflickr.com/8763/28148495284_679e52bc4f_m.jpg",
+    },
+    {
+        name: "Salmon Creek",
+        image: "https://api.creativecommons.engineering/t/600/https://live.staticflickr.com/3336/3551756947_7799d72c13_m.jpg",
+    }, {
+        name: "Granite Hill",
+        image: "https://api.creativecommons.engineering/t/600/https://farm9.staticflickr.com/8003/28660877652_56f7af6fc1_m.jpg",
+    }, {
         name: "Mountain Goat's Rest",
         image: "https://api.creativecommons.engineering/t/600/https://live.staticflickr.com/8763/28148495284_679e52bc4f_m.jpg",
     },
@@ -37,7 +49,10 @@ app.post("/campgrounds", function(req, res) {
     //get data from form and add to campgrounds array
     const name = req.body.name;
     const image = req.body.image;
-    const newCampground = { name: name, image: image };
+    const newCampground = {
+        name: name,
+        image: image
+    };
     campgrounds.push(newCampground);
     //redirect back to campgrounds page
     res.redirect("/campgrounds");
