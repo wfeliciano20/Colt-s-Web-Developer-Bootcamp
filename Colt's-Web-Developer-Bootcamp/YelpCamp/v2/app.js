@@ -1,12 +1,35 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const mongoose = require('mongoose');
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useUnifiedTopology', true);
+mongoose.connect("mongodb://localhost/yelp_camp");
 
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.set("view engine", "ejs");
 
+//Schema setup
+const campgroundsSchema = new mongoose.Schema({
+    name: String,
+    image: String
+});
+
+const Campground = mongoose.model("Campground", campgroundsSchema);
+
+Campground.create({
+    name: "Salmon Creek",
+    image: "https://api.creativecommons.engineering/t/600/https://live.staticflickr.com/3336/3551756947_7799d72c13_m.jpg"
+}, function(err, campground) {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log("NEWLY CREATED CAMPGROUND: ");
+        console.log(campground);
+    }
+});
 const campgrounds = [{
         name: "Salmon Creek",
         image: "https://api.creativecommons.engineering/t/600/https://live.staticflickr.com/3336/3551756947_7799d72c13_m.jpg",
