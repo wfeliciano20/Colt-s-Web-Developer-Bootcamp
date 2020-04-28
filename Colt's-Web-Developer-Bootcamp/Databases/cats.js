@@ -9,7 +9,20 @@ const catSchema = new mongoose.Schema({
 
 const Cat = mongoose.model('Cat', catSchema);
 
-Cat.
-    //adding a new cat to the DB
+let george = new Cat({
+    name: 'George',
+    age: 11,
+    temperament: 'Grouchy'
+});
+
+george.save(function(err, cat) {
+    if (err) {
+        console.log('Something went wrong.')
+    } else {
+        console.log('We just save a cat to the DB');
+        console.log(cat);
+    }
+});
+//adding a new cat to the DB
 
 //retrieve all cats from the DB and console.log each one
