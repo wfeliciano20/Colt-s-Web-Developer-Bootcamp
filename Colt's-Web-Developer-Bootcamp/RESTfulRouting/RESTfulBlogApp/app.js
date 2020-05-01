@@ -29,6 +29,8 @@ const Blog = mongoose.model("Blog", blogSchema);
 app.get("/", function(req, res) {
     res.redirect("/blogs");
 });
+
+// INDEX ROUTE
 app.get("/blogs", function(req, res) {
     Blog.find({}, function(err, blogs) {
         if (err) {
@@ -38,6 +40,27 @@ app.get("/blogs", function(req, res) {
         }
     });
 });
+//NEW ROUTE
+app.get("/blogs/new", function(req, res) {
+    res.render("new");
+});
+
+//CREATE ROUTE
+app.post("/blogs", function(req, res) {
+    Blog.create(req.body.blog, function(err, newBlog) {
+        if (err) {
+            res.render("new");
+        } else {
+            res.redirect("/blogs");
+        }
+    });
+});
+
+//SHOW ROUTE
+app.get("/blogs/:id", function(req, res) {
+    res.send("Show PAge");
+});
+
 // Set port 3000 to listen to requests
 app.listen(3000, function() {
     console.log("The RESTfullBlogApp server has started!");
