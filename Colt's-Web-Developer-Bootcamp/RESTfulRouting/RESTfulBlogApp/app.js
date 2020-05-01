@@ -20,7 +20,10 @@ const blogSchema = new mongoose.Schema({
     title: String,
     image: String,
     body: String,
-    created: { type: Date, default: Date.now },
+    created: {
+        type: Date,
+        default: Date.now
+    },
 });
 
 const Blog = mongoose.model("Blog", blogSchema);
@@ -36,7 +39,9 @@ app.get("/blogs", function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.render("index", { blogs: blogs });
+            res.render("index", {
+                blogs: blogs
+            });
         }
     });
 });
@@ -58,7 +63,15 @@ app.post("/blogs", function(req, res) {
 
 //SHOW ROUTE
 app.get("/blogs/:id", function(req, res) {
-    res.send("Show PAge");
+    Blog.findById(req.params.id, function(err, foundBlog) {
+        if (err) {
+            res.redirect("/blogs");
+        } else {
+            res.render('show', {
+                blog: foundBlog
+            });
+        }
+    });
 });
 
 // Set port 3000 to listen to requests
