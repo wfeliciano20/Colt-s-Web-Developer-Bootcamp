@@ -7,9 +7,13 @@ mongoose.set('useUnifiedTopology', true);
 const campgroundsSchema = new mongoose.Schema({
     name: String,
     image: String,
-    description: String
+    description: String,
+    comments: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment"
+    }]
 });
 
 const Campground = mongoose.model("Campground", campgroundsSchema);
 
-modules.exports = Campground;
+module.exports = Campground;
