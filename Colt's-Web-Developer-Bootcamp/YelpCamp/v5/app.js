@@ -9,7 +9,7 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useUnifiedTopology', true);
 mongoose.connect("mongodb://localhost/yelp_camp");
 
-
+app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({
     extended: true
 }));
