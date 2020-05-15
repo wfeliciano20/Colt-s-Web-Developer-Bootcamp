@@ -6,6 +6,7 @@ const localStrategy = require("passport-local");
 const passportLocalMongoose = require("passport-local-mongoose");
 const User = require("./models/user");
 
+
 //=========================================
 // mongoose set up
 //=========================================
@@ -14,6 +15,7 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useUnifiedTopology', true);
 mongoose.connect("mongodb://localhost/auth_demo_app");
 
+
 //==========================================
 // body parser set up
 //==========================================
@@ -21,10 +23,12 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+
 //==========================================
 // view engine to ejs so we doon't need .ejs
 //==========================================
 app.set("view engine", "ejs");
+
 
 //==========================================
 // set up and require express-session
@@ -34,6 +38,7 @@ app.use(require("express-session")({
     resave: false,
     saveUninitialized: false
 }));
+
 
 //==========================================
 // set up passport
@@ -45,6 +50,7 @@ passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+
 //==========================================
 // Routes
 //==========================================
@@ -55,6 +61,7 @@ app.get("/", function(req, res) {
 app.get("/secret", isLoggedIn, function(req, res) {
     res.render("secret");
 });
+
 
 //==========================================
 // auth routes
@@ -79,6 +86,7 @@ app.post("/register", function(req, res) {
     });
 });
 
+
 //==========================================
 // Login routes
 //==========================================
@@ -90,6 +98,7 @@ app.post("/login", passport.authenticate("local", {
     successRedirect: "/secret",
     failureRedirect: "/login"
 }), function(req, res) {});
+
 
 //=========================================
 // Log out route
