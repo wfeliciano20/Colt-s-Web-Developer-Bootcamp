@@ -3,20 +3,19 @@ const app = express();
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const localStrategy = require("passport-local");
+const methodOverride = require("method-override");
 const Campground = require("./models/campground");
 const Comment = require("./models/comment");
 const User = require("./models/user");
 const seedDB = require("./seeds");
-const mongoose = require('mongoose');
-
+const mongoose = require("mongoose");
 
 //===============================================
 //  Mongoose set up
 //===============================================
-mongoose.set('useNewUrlParser', true);
-mongoose.set('useUnifiedTopology', true);
+mongoose.set("useNewUrlParser", true);
+mongoose.set("useUnifiedTopology", true);
 mongoose.connect("mongodb://localhost/yelp_camp_v6");
-
 
 //===============================================
 // Require routes
@@ -25,35 +24,35 @@ const commentRoutes = require("./routes/comments");
 const campgroundRoutes = require("./routes/campgrounds");
 const indexRoutes = require("./routes/index");
 
-
 //===============================================
 // telling express to serve the public directory
 //===============================================
 app.use(express.static(__dirname + "/public"));
 
-
 //===============================================
 //  set up bodyParser
 //===============================================
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
-
+app.use(
+    bodyParser.urlencoded({
+        extended: true,
+    })
+);
 
 //===============================================
 //  Passport configuration
 //===============================================
-app.use(require("express-session")({
-    secret: "Once again Rusty wins cutest dog!",
-    resave: false,
-    saveUninitialized: false
-}));
+app.use(
+    require("express-session")({
+        secret: "Once again Rusty wins cutest dog!",
+        resave: false,
+        saveUninitialized: false,
+    })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-
 
 //===============================================
 // Passing Current user to every template
@@ -64,13 +63,16 @@ app.use(function(req, res, next) {
     next();
 });
 
-
 //===============================================
 //  tell express to use ejs and seeding the DB
 //===============================================
 app.set("view engine", "ejs");
 //seedDB();
 
+//===============================================
+//  Use method override to look for _method
+//===============================================
+app.use(methodOverride("_method"));
 
 //===============================================
 // Use the routes
@@ -78,7 +80,6 @@ app.set("view engine", "ejs");
 app.use(indexRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
-
 
 //===============================================
 // Set port 3000 to listen to requests
