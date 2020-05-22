@@ -3,6 +3,7 @@ const router = express.Router();
 const passport = require("passport");
 const User = require("../models/user");
 
+
 //===============================================
 // root route
 //===============================================
@@ -59,18 +60,6 @@ router.post("/login", passport.authenticate("local", {
 router.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/campgrounds');
-})
-
-
-//===============================================
-//  Middleware isLoggedIn
-//===============================================
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    res.redirect("/login")
-}
-
+});
 
 module.exports = router;

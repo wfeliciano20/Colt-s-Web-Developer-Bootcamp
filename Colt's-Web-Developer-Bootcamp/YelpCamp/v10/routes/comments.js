@@ -4,6 +4,7 @@ const router = express.Router({
 });
 const Campground = require("../models/campground");
 const Comment = require("../models/comment");
+const middleware = require("../middleware");
 
 
 //===============================================
@@ -43,7 +44,7 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
                     foundCampground.save();
                     res.redirect("/campgrounds/" + foundCampground._id)
                 }
-            })
+            });
         }
     });
 });

@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const Campground = require("../models/campground");
 const middleware = require("../middleware");
+
+
 //===============================================
 //Index - Show all campgrounds
 //===============================================
@@ -88,7 +90,7 @@ router.get("/:id/edit", middleware.checkCampgroundOwnership, function(req, res) 
 //===============================================
 // Update Campground Route
 //===============================================
-router.put("/:id", middleware.heckCampgroundOwnership, function(req, res) {
+router.put("/:id", middleware.checkCampgroundOwnership, function(req, res) {
     //find and update the correct campground
     Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(
         err,
