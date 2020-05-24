@@ -107,8 +107,9 @@ app.use("/campgrounds/:id/comments", commentRoutes);
 
 
 //===============================================
-// Set port 3000 to listen to requests
+// Set port 3000 to listen to requests locally
+// set up automatic port for heroku deployment
 //===============================================
-app.listen(3000, function() {
+app.listen(process.env.PORT || 3000, function() {
     console.log("The YelpCamp server has started!");
 });
