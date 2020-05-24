@@ -51,58 +51,65 @@ app.use(flash());
 
 
 //===============================================
-//  moments configuration
+//  emoments configuration
 //===============================================
 app.use(
-        app.locals.moment = require("moment");
+    app.locals.moment = require("moment"));
 
 
-        //===============================================
-        //  Passport configuration
-        //===============================================
-        app.use(
-            require("express-session")({
-                secret: "Once again Rusty wins cutest dog!",
-                resave: false,
-                saveUninitialized: false,
-            })
-        ); app.use(passport.initialize()); app.use(passport.session()); passport.use(new localStrategy(User.authenticate())); passport.serializeUser(User.serializeUser()); passport.deserializeUser(User.deserializeUser());
+//===============================================
+//  Passport configuration
+//===============================================
+app.use(
+    require("express-session")({
+        secret: "Once again Rusty wins cutest dog!",
+        resave: false,
+        saveUninitialized: false,
+    })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 
-        //===============================================
-        // Passing Current user,error & success 
-        // to every template middleware
-        //===============================================
-        app.use(function(req, res, next) {
-            res.locals.currentUser = req.user;
-            res.locals.error = req.flash("error");
-            res.locals.success = req.flash("success");
-            next();
-        });
+//===============================================
+// Passing Current user,error & success 
+// to every template middleware
+//===============================================
+app.use(function(req, res, next) {
+    res.locals.currentUser = req.user;
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
+    next();
+});
 
 
-        //===============================================
-        //  tell express to use ejs and seeding the DB
-        //===============================================
-        app.set("view engine", "ejs");
-        //seedDB();
+//===============================================
+//  tell express to use ejs and seeding the DB
+//===============================================
+app.set("view engine", "ejs");
+//seedDB();
 
 
-        //===============================================
-        //  Use method override to look for _method
-        //===============================================
-        app.use(methodOverride("_method"));
+//===============================================
+//  Use method override to look for _method
+//===============================================
+app.use(methodOverride("_method"));
 
 
-        //===============================================
-        // Use the routes
-        //===============================================
-        app.use(indexRoutes); app.use("/campgrounds", campgroundRoutes); app.use("/campgrounds/:id/comments", commentRoutes);
+//===============================================
+// Use the routes
+//===============================================
+app.use(indexRoutes);
+app.use("/campgrounds", campgroundRoutes);
+app.use("/campgrounds/:id/comments", commentRoutes);
 
 
-        //===============================================
-        // Set port 3000 to listen to requests
-        //===============================================
-        app.listen(3000, function() {
-            console.log("The YelpCamp server has started!");
-        });
+//===============================================
+// Set port 3000 to listen to requests
+//===============================================
+app.listen(3000, function() {
+    console.log("The YelpCamp server has started!");
+});
