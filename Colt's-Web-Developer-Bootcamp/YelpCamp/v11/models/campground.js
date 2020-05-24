@@ -6,6 +6,7 @@ mongoose.set('useUnifiedTopology', true);
 //Schema setup
 const campgroundsSchema = new mongoose.Schema({
     name: String,
+    price: String,
     image: String,
     description: String,
     author: {

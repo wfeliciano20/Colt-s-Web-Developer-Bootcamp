@@ -25,6 +25,7 @@ router.get("/", function(req, res) {
 router.post("/", middleware.isLoggedIn, function(req, res) {
     //get data from form and add to campgrounds array
     const name = req.body.name;
+    const price = req.body.price;
     const image = req.body.image;
     const description = req.body.description;
     const author = {
@@ -33,13 +34,15 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
     };
     const newCampground = {
         name: name,
+        price: price,
         image: image,
         description: description,
         author: author,
     };
     Campground.create(newCampground, function(err, newlyCreated) {
-        if (err) {
-            console.log(err);
+        if (err || !newlyCreated) {
+            req.flash("error", "Can't create campground");
+            res.redirect("back");
         } else {
             //redirect back to campgrounds page
             res.redirect("/campgrounds");
