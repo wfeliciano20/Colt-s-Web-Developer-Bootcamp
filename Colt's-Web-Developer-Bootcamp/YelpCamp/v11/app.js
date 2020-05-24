@@ -45,6 +45,12 @@ app.use(
 
 
 //===============================================
+// set up flash
+//===============================================
+app.use(flash());
+
+
+//===============================================
 //  Passport configuration
 //===============================================
 app.use(
@@ -62,11 +68,13 @@ passport.deserializeUser(User.deserializeUser());
 
 
 //===============================================
-// Passing Current user to every template
-// middleware
+// Passing Current user and message
+// to every template middleware
 //===============================================
 app.use(function(req, res, next) {
     res.locals.currentUser = req.user;
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
     next();
 });
 
@@ -82,12 +90,6 @@ app.set("view engine", "ejs");
 //  Use method override to look for _method
 //===============================================
 app.use(methodOverride("_method"));
-
-
-//===============================================
-// set up flash
-//===============================================
-app.use(flash());
 
 
 //===============================================
