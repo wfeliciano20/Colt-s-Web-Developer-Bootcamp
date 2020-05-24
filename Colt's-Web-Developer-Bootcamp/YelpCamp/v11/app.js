@@ -51,10 +51,9 @@ app.use(flash());
 
 
 //===============================================
-//  emoments configuration
+//  moments configuration
 //===============================================
-app.use(
-    app.locals.moment = require("moment"));
+app.locals.moment = require("moment");
 
 
 //===============================================
